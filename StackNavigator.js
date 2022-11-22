@@ -27,13 +27,13 @@ import Settings from "./screens/Settings";
 import Welcome from "./screens/Welcome";
 import { loginSuccess } from "./utils/redux/slices/userLoginSlice";
 import { publicRequest } from "./utils/requestMethods";
-
+import './axios.config'
 const Stack = createNativeStackNavigator();
 
 function StackNavigator() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.currentUser.currentUser);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   console.log(user);
   const test = false;
 
@@ -49,7 +49,7 @@ function StackNavigator() {
   useEffect(() => {
     if (!user) {
       setLoading(false);
-      // refreshUser()
+      refreshUser()
     }
   }, []);
   return loading ? (

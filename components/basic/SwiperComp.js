@@ -82,12 +82,12 @@ function SwiperComp() {
     fetchUsers();
     didMountRef.current = true;
   }, []);
-  useEffect(() => {
+  // useEffect(() => {
 
-      if (cardsData.length === 0) {
-        fetchUsers();
-      }
-  }, [cardsData]);
+  //     if (cardsData.length === 0) {
+  //       fetchUsers();
+  //     }
+  // }, [cardsData]);
 
   return (
     <SafeAreaView style={tw` flex-1 -mt-6`}>
@@ -125,7 +125,7 @@ function SwiperComp() {
           }}
         ></Swiper>
       </View>
-      <View style={tw`flex-1 flex flex-row justify-evenly mt-2`}>
+      {/* <View style={tw`flex-1 flex flex-row justify-evenly mt-2`}>
         <TouchableOpacity
           onPress={() => swipeRef.current.swipeLeft()}
           style={tw`items-center justify-center rounded-full w-16 h-16 bg-red-200`}
@@ -138,26 +138,7 @@ function SwiperComp() {
         >
           <AntDesign name="heart" size={24} color="green" />
         </TouchableOpacity>
-      </View>
-
-      {/* <CardsSwipe
-        cards={cardsData}
-        renderYep={() => (
-          <View style={[tw`absolute top-15 left-0 z-10`]}>
-            <Choice type={'like'} />
-          </View>
-        )}
-        renderNope={()=>
-          (<View style={[tw`absolute top-15 left-20 `]}>
-            <Choice type={'nope'} />
-          </View>)
-        }
-        renderNoMoreCard={()=>{<NoMaches/>}}
-        onSwipedRight={(index) => {
-          swipedRight(cardsData[index].id)
-        }}
-        renderCard={(card) => <Card user={card} right={right} nope={showNope}></Card>}
-      /> */}
+      </View> */}
     </SafeAreaView>
   );
 }
