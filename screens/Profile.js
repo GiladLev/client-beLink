@@ -23,7 +23,9 @@ const Profile = ({ route }) => {
           {/* details */}
           <View style={tw` flex-1 m-top-1`}>
             <View>
-              <Text style={tw`text-gray-900 font-bold text-xl mb-2 p-top-5`}>
+              <Text
+                style={tw`text-gray-900 font-bold text-3xl mb-2 m-top-7 text-center`}
+              >
                 {user.name}
               </Text>
             </View>
@@ -35,7 +37,7 @@ const Profile = ({ route }) => {
               />
               <Text style={tw`text-gray-700 text-base`}>{user.profession}</Text>
               <Text style={tw`text-gray-700 text-base`}>
-                {user?.education && user?.education[0]?.location}
+                {user?.education && ", " + user?.education[0]?.location}
               </Text>
             </View>
           </View>
@@ -43,7 +45,7 @@ const Profile = ({ route }) => {
           <View style={tw`my-3 h-px bg-gray-300 border-0 dark:bg-gray-700`} />
 
           {/* langauge */}
-          <Text style={tw`text-gray-900 font-bold text-xl mb-2`}>
+          <Text style={tw`text-gray-900 font-bold text-xl mb-2 text-center`}>
             Technology:
           </Text>
           <View style={tw`flex flex-2 flex-row flex-wrap flex-start`}>
@@ -52,9 +54,9 @@ const Profile = ({ route }) => {
                 return <Skills key={index} tech={tech} />;
               })}
           </View>
-          <View style={tw`flex`}>
+          <View style={tw`flex-row justify-center`}>
             <FontAwesome name="book" size={24} color="black" />
-            <Text style={tw`text-gray-900 font-bold text-xl mb-2`}>
+            <Text style={tw`text-gray-900 font-bold text-xl mb-2 text-center`}>
               Education:
             </Text>
             <Text>{user?.education && user?.education[0]?.location}</Text>
@@ -64,8 +66,12 @@ const Profile = ({ route }) => {
 
           {/* about */}
           <View style={tw` flex-1.5 `}>
-            <Text style={tw`text-center font-bold m-top-3`}>About me: </Text>
-            <Text style={tw`m-left-5 m-right-5 m-top-5`}>{user?.about} </Text>
+            <Text style={tw`text-gray-900 font-bold text-xl text-center`}>
+              About me:{" "}
+            </Text>
+            <Text style={tw`m-left-5 m-right-5 m-top-5 w-90%`}>
+              {user?.about}{" "}
+            </Text>
           </View>
 
           {/* links */}
