@@ -20,6 +20,7 @@ import Register from "./screens/authorization/register/Register";
 import ChatScreen from "./screens/ChatScreen";
 import Home from "./screens/Home";
 import MessageScreen from "./screens/MessageScreen";
+import Match from "./screens/Match";
 import MyProfile from "./screens/MyProfile";
 import Profile from "./screens/Profile";
 import Settings from "./screens/Settings";
@@ -74,6 +75,7 @@ function StackNavigator() {
           <Stack.Screen name="Login" component={Login} />
           {/* <Stack.Screen name="Test" component={Test} /> */}
           <Stack.Screen name="AddEmail" component={AddEmail} />
+          <Stack.Screen name="Match" component={Match} />
           <Stack.Screen name="AddPassword" component={AddPassword} />
           <Stack.Screen name="AddLabeling" component={AddLabeling} />
           <Stack.Screen name="AddProfession" component={AddProfession} />

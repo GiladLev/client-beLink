@@ -6,6 +6,8 @@ import { userRequest } from "../../utils/requestMethods";
 import Swiper from "react-native-deck-swiper";
 import Card from "./Card";
 import { AntDesign, Entypo } from "@expo/vector-icons";
+import NoMaches from "../../screens/NoMaches";
+import { useNavigation } from "@react-navigation/native";
 function SwiperComp() {
   const usersMatch = [
     {
@@ -49,30 +51,26 @@ function SwiperComp() {
     },
   ];
   const user = useSelector((state) => state.currentUser.currentUser);
-  const [showNope, setShowNope] = useState(false);
   const swipeRef = useRef(null);
   const [cardsData, setCardsData] = useState([]);
   const [saveCardsData, setSaveCardsData] = useState([]);
-  const [isMatch, setIsMatch] = useState(false);
-  const didMountRef = useRef(false);
+  const [swipedAll, setSwipedAll] = useState(true);
+  const navigation = useNavigation();
   const fetchUsers = () => {
     const userReq = userRequest(user.accessToken) || true;
     userReq("match/generate").then((res) => {
       setCardsData(res.data);
       setSaveCardsData(res.data);
+      res.data.length == 0 ? setSwipedAll(true) : setSwipedAll(false);
     });
   };
   const swipedRight = (userId) => {
-    console.log(saveCardsData[userId].id);
     const userReq = userRequest(user.accessToken);
     userReq
       .patch("match/swipedRight", {
-        matchId: saveCardsData[userId].id,
+        matchId: saveCardsData[userId]?.id,
       })
-      .then((res) => {
-        setIsMatch(res.data)
-        console.log(res.data);
-      });
+      .then((res) => res.data.match && navigation.navigate("Match"));
     cardsData.shift();
     setCardsData([...cardsData]);
   };
@@ -80,50 +78,54 @@ function SwiperComp() {
 
   useEffect(() => {
     fetchUsers();
-    didMountRef.current = true;
   }, []);
-  // useEffect(() => {
-
-  //     if (cardsData.length === 0) {
-  //       fetchUsers();
-  //     }
-  // }, [cardsData]);
+  useEffect(() => {
+    if (cardsData.length === 0) {
+      // fetchUsers()
+      setSwipedAll(true);
+    }
+  }, [cardsData]);
 
   return (
     <SafeAreaView style={tw` flex-1 -mt-6`}>
       <View style={tw` flex-9`}>
-        <Swiper
-          ref={swipeRef}
-          containerStyle={{ backgroundColor: "transparent" }}
-          cards={cardsData}
-          stackSize={5}
-          cardIndex={0}
-          animateCardOpacity
-          verticalSwipe={false}
-          onSwipedRight={swipedRight}
-          overlayLabels={{
-            left: {
-              title: "NOPE",
-              style: {
-                label: {
-                  textAlign: "right",
-                  color: "red",
+        {swipedAll ? (
+          <NoMaches />
+        ) : (
+          <Swiper
+            ref={swipeRef}
+            containerStyle={{ backgroundColor: "transparent" }}
+            cards={cardsData}
+            onSwipedAll={() => setSwipedAll(true)}
+            stackSize={5}
+            // cardIndex={0}
+            animateCardOpacity
+            verticalSwipe={false}
+            onSwipedRight={swipedRight}
+            overlayLabels={{
+              left: {
+                title: "NOPE",
+                style: {
+                  label: {
+                    textAlign: "right",
+                    color: "red",
+                  },
                 },
               },
-            },
-            right: {
-              title: "MATCH",
-              style: {
-                label: {
-                  color: "#4DED30",
+              right: {
+                title: "MATCH",
+                style: {
+                  label: {
+                    color: "#4DED30",
+                  },
                 },
               },
-            },
-          }}
-          renderCard={(user) => {
-            return <Card user={user} />;
-          }}
-        ></Swiper>
+            }}
+            renderCard={(user) => {
+              return <Card user={user} />;
+            }}
+          ></Swiper>
+        )}
       </View>
       {/* <View style={tw`flex-1 flex flex-row justify-evenly mt-2`}>
         <TouchableOpacity
