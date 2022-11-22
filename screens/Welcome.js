@@ -8,10 +8,10 @@ const Welcome = () => {
   return (
     <View style={tw`w-full h-full bg-primary`}>
       <View style={tw`flex-1`}>
-        {/* <Image
+        <Image
           style={tw`w-full h-full rounded-lg`}
-          source={require('../assets/Logo.png')}
-        /> */}
+          source={require('../assets/quiz-image/logo.png')}
+        />
       </View>
       <View style={tw`flex-1 p-5`}>
         <UIButton
