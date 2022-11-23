@@ -29,6 +29,8 @@ import Welcome from "./screens/Welcome";
 import { loginSuccess } from "./utils/redux/slices/userLoginSlice";
 import { publicRequest } from "./utils/requestMethods";
 import './axios.config'
+import Test from "./screens/Test";
+import ListMatch from "./screens/ListMatch";
 const Stack = createNativeStackNavigator();
 
 function StackNavigator() {
@@ -58,7 +60,7 @@ function StackNavigator() {
   ) : (
     <Stack.Navigator>
       {test ? (
-        <>{/* <Stack.Screen name="Test" component={Test} /> */}</>
+         <Stack.Screen name="Test" component={Test} />
       ) : user != null ? (
         <>
           <Stack.Screen name="Home" component={Home} />
@@ -67,6 +69,7 @@ function StackNavigator() {
           <Stack.Screen name="Chats" component={ChatScreen} />
           <Stack.Screen name="Setting" component={Settings} />
           <Stack.Screen name="Message" component={MessageScreen} />
+          <Stack.Screen name="ListMatch" component={ListMatch} />
         </>
       ) : (
         <>
